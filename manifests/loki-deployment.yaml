@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loki
+  template:
+    metadata:
+      labels:
+        app: loki
+    spec:
+      containers:
+      - args:
+        - -config.file=/etc/loki/local-config.yaml
+        image: grafana/loki:1.5.0
+        name: loki
+        ports:
+        - containerPort: 3100
+      restartPolicy: Always
