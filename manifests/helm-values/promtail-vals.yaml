@@ -25,7 +25,7 @@ scrapeConfigs:
       - action: keep
         regex: "my-app-.*"
         source_labels:
-        - __meta_kubernetes_pod_label_app
+          - __meta_kubernetes_pod_label_app
       - action: labelmap
         regex: __meta_kubernetes_pod_label_(.+)
       - replacement: /var/log/pods/*$1*/*/*.log

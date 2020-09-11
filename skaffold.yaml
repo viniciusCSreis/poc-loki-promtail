@@ -5,11 +5,13 @@ metadata:
 build:
   artifacts:
     - image: my-app-1
-      custom:
-        buildCommand: ./scripts/build-my-app-1.sh
+      context: .
+      docker:
+        dockerfile: my-app-1.Dockerfile
     - image: my-app-2
-      custom:
-        buildCommand: ./scripts/build-my-app-2.sh
+      context: .
+      docker:
+        dockerfile: my-app-2.Dockerfile
 deploy:
   kubectl:
     manifests:
@@ -20,7 +22,7 @@ deploy:
        chartPath: loki/promtail
        skipBuildDependencies: true
        valuesFiles:
-        - myvals.yaml
+        - manifests/helm-values/promtail-vals.yaml
        setValues:
          loki:
            serviceName: loki

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"net/http"
@@ -36,8 +37,20 @@ func main() {
 		log.Fatal().Err(http.ListenAndServe(":3000", nil)).Msg("Web server Down.")
 	}()
 
+	count := 0
+
 	for {
+		count++
 		time.Sleep(time.Second * 1)
-		log.Info().Msg("Hello 2")
+
+		switch count % 3 {
+		case 1:
+			log.Info().Msgf("Hello %d", count)
+		case 2:
+			log.Warn().Msgf("Ola %d", count)
+		default:
+			log.Error().Err(errors.New("some Error")).Msgf("Hola %d", count)
+		}
+
 	}
 }

@@ -10,13 +10,6 @@ Test project with skaffold,kind,chaos mech and nats
 
 [Install Kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 
-
-# Config Cluster
-
-```bash
-    ./scripts/init-local-cluster.sh
-```
-
 # Run micro services
 
 wait nats cluster to be running. 
@@ -26,28 +19,9 @@ wait nats cluster to be running.
     ./scripts/run-local.sh
 ```
 
-# Run experiments
+# See logs
 
-```bash
-    kubectl apply -f experimets/delay-nats.yaml
-```
-
-List authors is fast: `curl localhost:3000/authors`
-
-Create authors is slow and return error
-even when book service receive the msg: `curl -X POST localhost:3000/authors`
-
-# Delete experiments
-
-```bash
-    kubectl delete -f experimets/delay-nats.yaml
-```
-
-now create is fast `curl -X POST localhost:3000/authors`
-
-
-# Delete cluster
-
-```bash
-    kind delete cluster
-```
+1. Open grafana `localhost:3000`
+1. Login admin;admin
+1. Add loki datasource `url=loki:3100`
+1. Explore logs using app label
